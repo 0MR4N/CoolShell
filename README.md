@@ -32,8 +32,8 @@ _Thes colors can be used with background and underline._
 ```
 from CoolShell import *
 
-text_underline = colorize("hello i am have red underline", color=RED_UNDERLINE)
-text_background = colorize("hello i have a colorized background", color=RED_BACKGROUND)
+text_underline = colorize("hello i am have red underline", color=UNDERLINE_RED)
+text_background = colorize("hello i have a colorized background", color=BACKGROUND_RED)
 
 
 print(text_underline)
