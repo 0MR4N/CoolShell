@@ -1,4 +1,4 @@
-#/bin/python3.8
+#/bin/python3
 import argparse, sys, pprint
 from Colors import *
 
@@ -39,8 +39,9 @@ def main():
     USER_TEXT = " ".join(options.text)
     USER_COLOR = eval(options.color.upper())
     RESULT_TEXT = colorize(USER_TEXT, color=USER_COLOR)
+    USER_NEWLINE = options.no_newline
 
-    print(RESULT_TEXT)
+    print(RESULT_TEXT, end=USER_NEWLINE)
     return 0
     
 
