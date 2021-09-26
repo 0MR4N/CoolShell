@@ -44,5 +44,6 @@ print(text_background)
 
 ## Careful!
 If you use CoolShell as library **you should put the color only with uppercase letter**.
+
 And if you use it as script, **the script is case insensitive** you can put lowercase or upper anything you want(in -c/--color).
 
