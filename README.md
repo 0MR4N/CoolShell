@@ -26,7 +26,8 @@ _Thes colors can be used with background and underline._
 
 **Like that :**
 + By running script:
-    + `$ python3 CoolShell.py -c underline_cyan --text "hellooooow"` or `$ python3 CoolShell.py -c background_cyan --text "hellooooow"`.
+    + `$ python3 CoolShell.py -c underline_cyan --text "hellooooow"`
+    + `$ python3 CoolShell.py -c background_cyan --text "hellooooow"`.
 + Using CoolShell as library:
 ```
 from CoolShell import *
