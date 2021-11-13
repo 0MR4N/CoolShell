@@ -1,12 +1,20 @@
 #/bin/python3
-import argparse, sys, pprint
-from Colors import *
+import argparse, sys
+from colors import *
 
-def colorize(text:str, color:str=DEFAULT):
-    """colorize is function that return the styled a text argument and automatically add the default color at the end.
-    if no color is specified the color will be the default one"""
+def colorize(colors:str=DEFAULT, text:str="", default_end:bool=True):
+    return f"{colors}{text}{default_end and DEFAULT or ''}"
 
-    return color + text + DEFAULT
+
+colorize.__doc__ = """colorize is function that return the styled a text argument.
+    if no color is specified the color will be the default one.
+    
+    arguments:
+        text (str): text which you want to colorize.
+        colors (str): put a background color or font color and you can put them together using +.
+        default_end (bool): specify whether you want to end the text string with default color or not."""
+
+
 
 
 
@@ -15,33 +23,36 @@ def main():
 
 
 
-    parser.add_argument("-c", "--color", dest="color", required=True,
-                        type=str, metavar="color".upper(),
-                        help="which color you want to use.".title())
+    parser.add_argument("-c", "--color", dest="colors", required=True,
+                        type=str, metavar="COLOR(S)", nargs="+",
+                        help="Which color you want to use.")
 
     parser.add_argument("-t", "--text", dest="text", required=True,
-                        metavar="text".upper(), nargs="+", type=str,
-                        help="text to be colorized.".title())
+                        metavar="TEXT", nargs="+", type=str,
+                        help="Text to be colorized.")
     
-    parser.add_argument("-n", "--no-newline", dest="no_newline", default="\n",
+    parser.add_argument("-n", "--no-newline", dest="newline", default="\n",
                         required=False, const="", action="store_const",
-                        help="set it if you won't new line at the end of the text.".title())
-
-
+                        help="set it if you won't new line at the end of the text.")
 
 
     options = parser.parse_args()
-    if options.color.upper() not in COLORS:
-        sys.stderr.write(colorize("[!] YOU SHOULD SELECT ONE OF THE COMING COLORS.\n", BOLD_RED))
-        pprint.pprint(COLORS, stream=sys.stderr)
-        return 2
+
+
 
     USER_TEXT = " ".join(options.text)
-    USER_COLOR = eval(options.color.upper())
-    RESULT_TEXT = colorize(USER_TEXT, color=USER_COLOR)
-    USER_NEWLINE = options.no_newline
+    USER_NEWLINE = options.newline
+    USER_COLORS = eval("+".join(list(map(lambda e: e.upper(), options.colors))))
 
-    print(RESULT_TEXT, end=USER_NEWLINE)
+
+
+    if not all(i.upper() in COLORS for i in options.colors):
+        print(colorize(f"{BOLD_YELLOW}[{BOLD_RED} ! {BOLD_YELLOW}] {BOLD_RED}YOU SHOULD SELECT ONE OF THE COMING COLORS.{DEFAULT}"), file=sys.stderr)
+        [print(i, file=sys.stderr) for i in COLORS]
+        return 2
+    
+
+    print(colorize(USER_COLORS, USER_TEXT), end=USER_NEWLINE)
     return 0
     
 
